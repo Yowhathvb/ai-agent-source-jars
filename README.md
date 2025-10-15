@@ -19,7 +19,7 @@
   <!-- Shields/Badges -->
   <img src="https://img.shields.io/badge/Version-1.0.0-lightblue" alt="Version">
   <img src="https://img.shields.io/badge/License-MIT-lightblue" alt="License">
-  <img src="https://img.shields.io/badge/PHP-8.0%2B-lightblue" alt="PHP">
+  <img src="https://img.shields.io/badge/PHP-7.3%2B-lightblue" alt="PHP">
   <img src="https://img.shields.io/badge/Powered%20by-Gemini%20AI-blue" alt="Powered by Gemini AI">
 </p>
 
@@ -55,7 +55,7 @@ Repository ini berisi source code untuk **JARs**, sebuah AI Agent yang berfungsi
 
 ## 🛠️ **Teknologi yang Digunakan (Tech Stack)**
 
-- **Backend:** [PHP Native](https://www.php.net/) (8.0+)
+- **Backend:** [PHP Native](https://www.php.net/) (7.3+)
 - **AI Model:** [Google Generative AI (Gemini)](https://deepmind.google/technologies/gemini/)
 - **HTTP Client:** cURL
 - **Frontend (Optional):** HTML, CSS, JavaScript
