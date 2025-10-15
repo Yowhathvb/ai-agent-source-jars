@@ -67,13 +67,13 @@ Repository ini berisi source code untuk **JARs**, sebuah AI Agent yang berfungsi
 ### **Prasyarat (Prerequisites)**
 
 Pastikan server Anda memenuhi:
-- PHP 8.0 atau yang lebih baru
+- PHP 7.3 atau yang lebih baru
 - Ekstensi cURL terinstall dan aktif
 - Composer (untuk dependency management, jika diperlukan)
 - Akun Google AI Studio untuk mendapatkan API Key
 
 > **Make sure your server has:**
-> - PHP 8.0+
+> - PHP 7.3+
 > - cURL extension installed and enabled
 > - Composer (for dependency management, if needed)
 > - A Google AI Studio account to get an API Key
