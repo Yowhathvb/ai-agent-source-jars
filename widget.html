@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Widget</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .widget-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .widget-header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .widget-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .widget-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .widget-content {
+            padding: 25px;
+        }
+        
+        .widget-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #6c757d;
+            text-transform: uppercase;
+        }
+        
+        .widget-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .control-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+        
+        .widget-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .widget-input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        
+        .status-text {
+            text-align: center;
+            padding: 10px;
+            background: #e7f5ff;
+            border-radius: 6px;
+            color: #007bff;
+            font-size: 14px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .status-text.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="widget-container">
+        <div class="widget-header">
+            <div class="widget-title">AI Assistant Widget</div>
+            <div class="widget-subtitle">Interactive Control Panel</div>
+        </div>
+        
+        <div class="widget-content">
+            <div class="widget-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="users-count">128</div>
+                    <div class="stat-label">Users</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="sessions-count">356</div>
+                    <div class="stat-label">Sessions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="requests-count">892</div>
+                    <div class="stat-label">Requests</div>
+                </div>
+            </div>
+            
+            <div class="widget-controls">
+                <button class="control-btn btn-primary" onclick="startService()">Start Service</button>
+                <button class="control-btn btn-secondary" onclick="stopService()">Stop Service</button>
+            </div>
+            
+            <input type="text" class="widget-input" id="command-input" placeholder="Enter command..." onkeypress="handleKeyPress(event)">
+            
+            <div class="status-text" id="status-message">Ready to receive commands</div>
+        </div>
+    </div>
+
+    <script>
+        let serviceRunning = false;
+        
+        function startService() {
+            if (!serviceRunning) {
+                serviceRunning = true;
+                updateStatus('Service started successfully', 'success');
+                updateCounter('sessions-count', 1);
+            } else {
+                updateStatus('Service is already running', 'warning');
+            }
+        }
+        
+        function stopService() {
+            if (serviceRunning) {
+                serviceRunning = false;
+                updateStatus('Service stopped', 'info');
+            } else {
+                updateStatus('Service is not running', 'warning');
+            }
+        }
+        
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                const command = document.getElementById('command-input').value.trim();
+                if (command) {
+                    executeCommand(command);
+                    document.getElementById('command-input').value = '';
+                }
+            }
+        }
+        
+        function executeCommand(command) {
+            updateStatus(`Executing: ${command}`, 'info');
+            updateCounter('requests-count', 1);
+            
+            // Simulate command processing
+            setTimeout(() => {
+                updateStatus(`Command "${command}" completed`, 'success');
+            }, 1500);
+        }
+        
+        function updateStatus(message, type) {
+            const statusElement = document.getElementById('status-message');
+            statusElement.textContent = message;
+            statusElement.className = `status-text visible ${type}`;
+            
+            // Clear status after 3 seconds
+            setTimeout(() => {
+                statusElement.className = 'status-text';
+            }, 3000);
+        }
+        
+        function updateCounter(elementId, increment) {
+            const element = document.getElementById(elementId);
+            let currentValue = parseInt(element.textContent);
+            element.textContent = currentValue + increment;
+        }
+        
+        // Initialize with random data updates
+        setInterval(() => {
+            if (serviceRunning) {
+                updateCounter('users-count', Math.floor(Math.random() * 3));
+                updateCounter('requests-count', Math.floor(Math.random() * 5));
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
